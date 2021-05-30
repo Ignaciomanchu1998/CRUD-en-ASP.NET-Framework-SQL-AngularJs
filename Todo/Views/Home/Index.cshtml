@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="" ng-controller="CtrlTareas">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="row no-gutter">
+            <div class="col-xs-12">
+                <div class="card">
+                    <div class="card-heading">
+                        <h2><i class="fa fa-sticky-note"></i> <b>Tareas</b></h2>
+                    </div>
+                    <div class="card-tools">
+                        <button ng-click="openModal('', 0)" type="button" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-4" ng-repeat="item in tareas">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">{{item.titulo}}</h4>
+                        <hr class="py-5" />
+                        <p class="card-text">
+                            <b>Detalle</b>: {{item.detalle}}
+                            <br />
+                            <b>Estado</b>:
+                            <span class="" ng-show="item.estado == true"> Activo</span>
+                            <span class="" ng-show="item.estado == false"> Inactivo</span>
+                        </p>
+                        <ul class="nav nav-pills nav-sm">
+                            <li><a href="" ng-click="openModal(item, 1)"><i class="fa fa-edit"></i></a></li>
+                            <li><a href="" ng-click="openModal(item, 2)"><i class="fa fa-trash"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tareaModal" class="modal fade mt-5" data-backdrop="static" data-keyboard="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form ng-submit="operationTarea()">
+                    <div class="modal-header">
+                        <h4 class="modal-title"><i class="{{data.iconModal}}"></i> {{data.tituloModal}}</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="">Titulo: </label>
+                            <input type="text" ng-model="data.titulo" class="form-control" placeholder="Título">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Detalle: </label>
+                            <textarea ng-model="data.detalle" class="form-control" rows="5" placeholder="Detalle"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Agregar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="delete" tabindex="-1">
+        <div class="modal-dialog modal-sm">
+            <form ng-submit="operationTarea()">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"><i class="{{data.iconModal}}"></i> {{data.tituloModal}}</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <b>Eliminar</b>:
+                            <br />
+                            {{data.titulo}}
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script src="~/Scripts/App/Controllers/CtrlTareas.js"></script>
+}
